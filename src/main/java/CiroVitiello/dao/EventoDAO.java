@@ -5,6 +5,8 @@ import CiroVitiello.exceptions.NoEventsFoundException;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
 
+import java.util.UUID;
+
 public class EventoDAO {
 
     private final EntityManager em;
@@ -22,13 +24,13 @@ public class EventoDAO {
         System.out.println("The event " + event.getTitolo() + " was saved successfully");
     }
 
-    public Evento findEventByID(long eventID) {
+    public Evento findEventByID(UUID eventID) {
         Evento event = em.find(Evento.class, eventID);
         if (event == null) throw new NoEventsFoundException(eventID);
         return event;
     }
 
-    public void deleteEvent(long eventID) {
+    public void deleteEvent(UUID eventID) {
         Evento found = this.findEventByID(eventID);
 
         EntityTransaction transaction = em.getTransaction();

@@ -4,6 +4,7 @@ import CiroVitiello.enums.TipoEventoE;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
+import java.util.UUID;
 
 @Entity
 @Table(name = "events")
@@ -12,7 +13,7 @@ public class Evento {
     @GeneratedValue
 
 
-    private long id;
+    private UUID id;
     @Column(name = "title")
     private String titolo;
     @Column(name = "event_date")
@@ -25,7 +26,11 @@ public class Evento {
     @Column(name = "max_spectators")
     private int massimoPartecipanti;
 
+    @ManyToOne
+    @JoinColumn(name = "location_id")
+    private Location location;
 
+    
     public Evento() {
 
     }
@@ -40,7 +45,7 @@ public class Evento {
 
     }
 
-    public long getId() {
+    public UUID getId() {
         return id;
     }
 
@@ -94,6 +99,7 @@ public class Evento {
                 ", descrizione='" + descrizione + '\'' +
                 ", tipoevento=" + tipoevento +
                 ", massimoPartecipanti=" + massimoPartecipanti +
+                ", location=" + location +
                 '}';
     }
 }
